@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "module": "none",
+    "noImplicitAny": true,
+    // "outFile": "./js/build.js",
+    "outDir": "./js/",
+    "preserveConstEnums": true,
+    "removeComments": true,
+    "rootDir": "./src/",
+    "sourceMap": true,
+    "target": "ES6",
+    "moduleResolution": "node"
+  }
+}
