@@ -1,7 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Drop = void 0;
-const utils_1 = require("./utils");
+exports.ReflectedDrop = exports.BrightDrop = exports.Drop = void 0;
 class Drop {
     constructor(top_x, top_y, length, thickness, speed, wind, color) {
         this.top_x = top_x;
@@ -16,31 +15,6 @@ class Drop {
         p.stroke(this.color);
         p.strokeWeight(this.thickness);
         p.line(this.top_x, this.top_y, this.top_x, this.top_y + this.length);
-    }
-    static getRandDrop(p) {
-        return new Drop(this.setRandTopX(p), this.setRandTopY(p), this.setRandLength(p), this.setRandThickness(p), this.setRandSpeed(p), this.setRandWind(p), this.setRandColor(p));
-    }
-    static setRandTopX(p) {
-        return p.random() * p.width;
-    }
-    static setRandTopY(p) {
-        return p.random() * p.height;
-    }
-    static setRandLength(p) {
-        return Math.max(90, (0, utils_1.gauss)(100, 30));
-    }
-    static setRandThickness(p) {
-        return Math.max(1, (0, utils_1.gauss)(1, 2));
-    }
-    static setRandSpeed(p) {
-        return Math.max(100, 10 + (0, utils_1.gauss)(100, 50));
-    }
-    static setRandWind(p) {
-        return 0;
-    }
-    static setRandColor(p) {
-        let color_gauss = (0, utils_1.gauss)(10, 5);
-        return [120 + color_gauss, 120 + color_gauss, 120 + color_gauss, 65 + (0, utils_1.gauss)(5, 5)];
     }
 }
 exports.Drop = Drop;
@@ -59,4 +33,23 @@ class BrightDrop extends Drop {
         p.line(this.top_x, bright_init_y, this.top_x, bright_init_y + bright_len);
     }
 }
+exports.BrightDrop = BrightDrop;
+class ReflectedDrop extends Drop {
+    constructor(top_x, top_y, length, thickness, color) {
+        super(top_x, top_y, length, thickness, 0, 0, color);
+        this.wind = Math.tan(Math.random() * Math.PI / 4) * this.length;
+        this.wind_dir = Math.random() > 0.5 ? 1 : -1;
+        this.color = color;
+        this.countdown = 5;
+    }
+    draw(p) {
+        if (this.countdown > 0) {
+            p.stroke(this.color);
+            p.strokeWeight(this.thickness);
+            p.line(this.top_x, this.top_y, this.top_x + this.wind * this.wind_dir, this.top_y - this.length);
+            this.countdown -= 1;
+        }
+    }
+}
+exports.ReflectedDrop = ReflectedDrop;
 //# sourceMappingURL=drop.js.map
