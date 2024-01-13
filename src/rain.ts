@@ -9,10 +9,11 @@ export class Rain extends Array<Drop> {
     textbox_y: number; // y of textbox
     textbox_width: number; // width of textbox
     // collection of drops
-    constructor(drops: Array<Drop>, is_reflected = false, textbox_x = 0, textbox_y = 0, textbox_width = 0) {
+    constructor(drops: Array<Drop>, is_reflected = false, textbox_x=0, textbox_y = 0, textbox_width = 0) {
         super(...drops);
         this.textbox_x = textbox_x;
         this.textbox_y = textbox_y;
+        this.textbox_width = textbox_width;
         this.is_reflected = is_reflected;
         this.reflections = [];
     }
@@ -28,13 +29,18 @@ export class Rain extends Array<Drop> {
             let bottom_y = this[i].top_y + this[i].length;
             let at_textbox_y = bottom_y >= this.textbox_y && bottom_y <= this.textbox_y + this[i].length;
             let at_textbox_x = this[i].top_x >= this.textbox_x && this[i].top_x <= this.textbox_x + this.textbox_width;
+            // if (this.is_reflected) {
+            //     console.log('drop number', i, this[i].top_x, this[i].top_y);
+            //     console.log('textbox', this.textbox_x, this.textbox_y, this.textbox_width);
+            //     console.log(at_textbox_y, at_textbox_x);
+            // }
             if (this.is_reflected && at_textbox_y && at_textbox_x) {
                 this.reflections.push(
                     new ReflectedDrop(
                         this[i].top_x, // x
                         this.textbox_y, // y
-                        p.randomGaussian(35,5), // length
-                        3.5, // width
+                        p.randomGaussian(20,5), // length
+                        2.5, // width
                         this[i].color));
             }
         }

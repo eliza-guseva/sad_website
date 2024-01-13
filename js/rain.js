@@ -17,7 +17,7 @@ class Rain extends Array {
                 let at_textbox_y = bottom_y >= this.textbox_y && bottom_y <= this.textbox_y + this[i].length;
                 let at_textbox_x = this[i].top_x >= this.textbox_x && this[i].top_x <= this.textbox_x + this.textbox_width;
                 if (this.is_reflected && at_textbox_y && at_textbox_x) {
-                    this.reflections.push(new drop_1.ReflectedDrop(this[i].top_x, this.textbox_y, p.randomGaussian(35, 5), 3.5, this[i].color));
+                    this.reflections.push(new drop_1.ReflectedDrop(this[i].top_x, this.textbox_y, p.randomGaussian(20, 5), 2.5, this[i].color));
                 }
             }
             for (let i = 0; i < this.reflections.length; i++) {
@@ -31,6 +31,7 @@ class Rain extends Array {
         };
         this.textbox_x = textbox_x;
         this.textbox_y = textbox_y;
+        this.textbox_width = textbox_width;
         this.is_reflected = is_reflected;
         this.reflections = [];
     }

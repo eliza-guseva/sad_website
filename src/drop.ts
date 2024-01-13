@@ -49,7 +49,7 @@ export class BrightDrop extends Drop {
 }
 
 
-export class ReflectedDrop extends Drop{
+export class ReflectedDrop extends BrightDrop{
     wind_dir: number;
     countdown: number;
     // flies back
@@ -61,7 +61,7 @@ export class ReflectedDrop extends Drop{
         this.wind = Math.tan(Math.random() * Math.PI / 4) * this.length;
         this.wind_dir = Math.random() > 0.5 ? 1 : -1;
         this.color = color;
-        this.countdown = 5;
+        this.countdown = 2;
     }
     draw(p: p5) {
         if (this.countdown > 0) {

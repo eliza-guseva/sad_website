@@ -34,13 +34,13 @@ class BrightDrop extends Drop {
     }
 }
 exports.BrightDrop = BrightDrop;
-class ReflectedDrop extends Drop {
+class ReflectedDrop extends BrightDrop {
     constructor(top_x, top_y, length, thickness, color) {
         super(top_x, top_y, length, thickness, 0, 0, color);
         this.wind = Math.tan(Math.random() * Math.PI / 4) * this.length;
         this.wind_dir = Math.random() > 0.5 ? 1 : -1;
         this.color = color;
-        this.countdown = 5;
+        this.countdown = 2;
     }
     draw(p) {
         if (this.countdown > 0) {
