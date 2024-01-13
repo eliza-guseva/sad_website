@@ -49,7 +49,7 @@ function defineTextBoxParams(p: p5) {
     if (p.windowWidth > p.windowHeight) {
         // textbox width is in the center occupying 1/2 of the screen
         let textbox_width = p.windowWidth / 2;
-        let textbox_height = p.windowHeight / 2;
+        let textbox_height = p.windowHeight / 3 * 2;
         let textbox_x = (p.windowWidth - textbox_width) / 2;
         let textbox_y = (p.windowHeight - textbox_height) / 2;
         return [textbox_x, textbox_y, textbox_width, textbox_height];
@@ -57,7 +57,7 @@ function defineTextBoxParams(p: p5) {
     else {
         // textbox width is taking 3/4 of the screen, height is 1/2
         let textbox_width = 3 * p.windowWidth / 4;
-        let textbox_height = p.windowHeight / 2;
+        let textbox_height = p.windowHeight / 3  * 2;
         let textbox_x = (p.windowWidth - textbox_width) / 2;
         let textbox_y = (p.windowHeight - textbox_height) / 2;
         return [textbox_x, textbox_y, textbox_width, textbox_height];
