@@ -1,0 +1,28 @@
+[tool.poetry]
+name = "sad-website"
+version = "0.1.0"
+description = ""
+authors = ["EG", "MB"]
+readme = "readme.md"
+repository = "https://github.com/eliza-guseva/sad-website"
+classifiers = [
+    "Operating System :: MacOS",
+    "Operating System :: POSIX :: Linux"
+]
+
+[tool.poetry.dependencies]
+python = "3.11.*"
+Flask="*"
+Flask_RESTful="*"
+Flask_Cors="*"
+gunicorn="*"
+
+
+[tool.poetry.dev-dependencies]
+jupyter = "*"
+matplotlib = "*"
+seaborn = "*"
+ruff = "*"
+pytest = "*"
+pytest-mock = "*"
+pre_commit = "*"
