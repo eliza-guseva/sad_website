@@ -4,12 +4,13 @@
   "description": "",
   "main": "p5_1.js",
   "scripts": {
+    "cd": "cd frontend",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack --mode production",
-    "start": "run-s compile build",
-    "compile": "tsc",
-    "typescript": "tsc --watch",
-    "start-run": "browser-sync start --server -w"
+    "build": "cd frontend && webpack  --mode production",
+    "start": "cd frontend && run-s compile build",
+    "compile": "cd frontend && tsc",
+    "typescript": "cd frontend && tsc --watch",
+    "start-run": "cd frontend && browser-sync start --server -w"
   },
   "keywords": [],
   "author": "",
