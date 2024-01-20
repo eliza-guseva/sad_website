@@ -37,10 +37,16 @@ function defineTextBoxParams(p) {
         return [textbox_x, textbox_y, textbox_width, textbox_height];
     }
 }
+function styleTextBox(textbox_x, textbox_y, textbox_width, textbox_height) {
+    document.getElementById('centeredInput').style.left = textbox_x + 'px';
+    document.getElementById('centeredInput').style.top = textbox_y + 'px';
+    document.getElementById('centeredInput').style.width = textbox_width + 'px';
+    document.getElementById('centeredInput').style.height = textbox_height + 'px';
+    document.getElementById('centeredInput').style.backgroundColor = 'rgba(75, 90, 125)';
+}
 var sketch = (p) => {
     let [textbox_x, textbox_y, textbox_width, textbox_height] = defineTextBoxParams(p);
-    console.log(p.windowWidth, p.windowHeight);
-    console.log(textbox_x, textbox_y, textbox_width, textbox_height);
+    styleTextBox(textbox_x, textbox_y, textbox_width, textbox_height);
     let bright_drops = createBrightDrops(p, n_bright_drops);
     let bck_drops = createBckDrops(p, n_bck_drops);
     let rain = new rain_1.Rain(bright_drops, true, textbox_x, textbox_y, textbox_width);
@@ -54,8 +60,6 @@ var sketch = (p) => {
         p.background(background_color);
         bck_raind.draw(p);
         rain.draw(p);
-        p.fill(75, 90, 125, 255);
-        p.rect(textbox_x, textbox_y, textbox_width, textbox_height);
     };
 };
 new p5(sketch);
