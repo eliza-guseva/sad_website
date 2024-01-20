@@ -64,12 +64,24 @@ function defineTextBoxParams(p: p5) {
     }
 }
 
+function styleTextBox(
+    textbox_x: number, 
+    textbox_y: number, 
+    textbox_width: number, 
+    textbox_height: number
+    ) {
+    document.getElementById('centeredInput').style.left = textbox_x + 'px';
+    document.getElementById('centeredInput').style.top = textbox_y + 'px';
+    document.getElementById('centeredInput').style.width = textbox_width + 'px';
+    document.getElementById('centeredInput').style.height = textbox_height + 'px';
+    // color background with 75, 90, 125
+    document.getElementById('centeredInput').style.backgroundColor = 'rgba(75, 90, 125)';
+}
 
 
 var sketch = (p: p5) => {
     let [textbox_x, textbox_y, textbox_width, textbox_height] = defineTextBoxParams(p);
-    console.log(p.windowWidth, p.windowHeight);
-    console.log(textbox_x, textbox_y, textbox_width, textbox_height);
+    styleTextBox(textbox_x, textbox_y, textbox_width, textbox_height);
     let bright_drops = createBrightDrops(p, n_bright_drops);
     let bck_drops = createBckDrops(p, n_bck_drops);
 
@@ -84,9 +96,9 @@ var sketch = (p: p5) => {
         p.background(background_color);
         bck_raind.draw(p);
         rain.draw(p);
-        p.fill(75, 90, 125, 255);
+        // p.fill(75, 90, 125, 255);
         
-        p.rect(textbox_x, textbox_y, textbox_width, textbox_height);
+        // p.rect(textbox_x, textbox_y, textbox_width, textbox_height);
         // if (p.frameCount > 20) { 
         //     p.noLoop();
         // }
