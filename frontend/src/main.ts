@@ -1,6 +1,106 @@
-
+import axios from 'axios';
 import { Drop, BrightDrop } from "./drop";
 import { Rain } from "./rain";
+
+
+// textbox business
+let button_height = 40;
+let fieldsBackground = 'rgba(17, 22, 40, 0.9)';
+
+export function submitText() {
+    // Get the value from the textarea
+    var textBoxValue = (<HTMLInputElement>document.getElementById("centeredInput")).value;
+    console.log(textBoxValue);
+    // Define the API endpoint
+    var apiEndpoint = "http://127.0.0.1:8080/flask/hello";
+
+    axios.post(apiEndpoint, {
+        type: "words",
+        message: textBoxValue
+    })
+    .then(function (response) {
+        console.log(response);
+        (<HTMLInputElement>document.getElementById("centeredInput")).value = response.data.message;
+
+    })
+}
+
+function createTextBoxContainer(
+    textbox_x: number, 
+    textbox_y: number, 
+    textbox_width: number, 
+    textbox_height: number) {
+    var myContainer = document.createElement('div');
+    myContainer.id = 'myContainer';
+    myContainer.style.position = 'absolute';
+    myContainer.style.display = 'flex';
+    myContainer.style.flexDirection = 'column';
+    myContainer.style.left = textbox_x + 'px';
+    myContainer.style.top = textbox_y + 'px';
+    myContainer.style.width = textbox_width + 'px';
+    myContainer.style.height = textbox_height + 'px';
+    myContainer.style.backgroundColor = 'rgba(7, 5, 21, 0.05)';
+    document.body.appendChild(myContainer);
+}
+
+function createTextBox(
+    textbox_x: number, 
+    textbox_y: number, 
+    textbox_width: number, 
+    textbox_height: number) {
+    var centeredInput = document.createElement('textarea');
+    centeredInput.id = 'centeredInput';
+    centeredInput.style.left = textbox_x + 'px';
+    centeredInput.style.top = textbox_y + 'px';
+    centeredInput.style.width = textbox_width + 'px';
+    centeredInput.style.height = textbox_height - button_height - 5 + 'px';
+    centeredInput.style.backgroundColor = fieldsBackground;
+    centeredInput.style.color = 'rgba(255, 255, 255, 1)';
+    centeredInput.style.border = 3 + 'px solid rgba(17, 15, 25, 1)';
+    centeredInput.placeholder = 'What is on your mind?'
+    centeredInput.style.resize = 'none';
+    centeredInput.style.outline = 'none';
+    document.getElementById('myContainer').appendChild(centeredInput);
+}
+
+
+function createButton(
+    button_height: number,
+    textbox_width: number,
+    ) {
+    var submit = document.createElement('button');
+    submit.style.height = button_height + 'px';
+    submit.style.width = textbox_width + 'px';
+    submit.style.marginTop = 5 + 'px';
+    submit.style.backgroundColor = fieldsBackground;
+    submit.style.color = 'rgba(255, 255, 255, 1)';
+    submit.style.border = 3 + 'px solid rgba(17, 15, 25, 1)';
+    //submit.style.fontSize = 20 + 'px';
+    submit.style.borderRadius = 5 + 'px';
+    document.getElementById('myContainer').appendChild(submit);
+    submit.onclick = submitText;
+    submit.innerHTML = 'Give me a reason to be sad';
+    // add shadow on hover
+    submit.onmouseover = function() {
+        submit.style.boxShadow = '0px 0px 10px 2px rgba(255, 255, 255, 0.5)';
+    };
+    // remove shadow on mouseout
+    submit.onmouseout = function() {
+        submit.style.boxShadow = 'none';
+    };
+}
+
+function createAllElements(
+    textbox_x: number, 
+    textbox_y: number, 
+    textbox_width: number, 
+    textbox_height: number) {
+    createTextBoxContainer(textbox_x, textbox_y, textbox_width, textbox_height);
+    createTextBox(textbox_x, textbox_y, textbox_width, textbox_height)
+    createButton(button_height, textbox_width);
+}
+
+
 
 function createBrightDrops(p: p5, bright_drop_count: number) {
     let bright_drops: Array<BrightDrop> = [];
@@ -33,7 +133,7 @@ function createBckDrops(p: p5, bck_drop_count: number) {
                 Math.max(1, p.randomGaussian(40, 10)), // width
                 30, // speed
                 0, // wind
-                [120 + color_gauss, 120 + color_gauss, 120 + color_gauss, 2 + p.randomGaussian(2, 1)]
+                [120 + color_gauss, 120 + color_gauss, 120 + color_gauss, Math.max(0.1,p.randomGaussian(3, 1))]
                 ));
     }
     return bck_drops;
@@ -64,24 +164,12 @@ function defineTextBoxParams(p: p5) {
     }
 }
 
-function styleTextBox(
-    textbox_x: number, 
-    textbox_y: number, 
-    textbox_width: number, 
-    textbox_height: number
-    ) {
-    document.getElementById('centeredInput').style.left = textbox_x + 'px';
-    document.getElementById('centeredInput').style.top = textbox_y + 'px';
-    document.getElementById('centeredInput').style.width = textbox_width + 'px';
-    document.getElementById('centeredInput').style.height = textbox_height + 'px';
-    // color background with 75, 90, 125
-    document.getElementById('centeredInput').style.backgroundColor = 'rgba(75, 90, 125)';
-}
+
 
 
 var sketch = (p: p5) => {
     let [textbox_x, textbox_y, textbox_width, textbox_height] = defineTextBoxParams(p);
-    styleTextBox(textbox_x, textbox_y, textbox_width, textbox_height);
+    createAllElements(textbox_x, textbox_y, textbox_width, textbox_height);
     let bright_drops = createBrightDrops(p, n_bright_drops);
     let bck_drops = createBckDrops(p, n_bck_drops);
 

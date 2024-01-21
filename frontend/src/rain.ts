@@ -29,11 +29,6 @@ export class Rain extends Array<Drop> {
             let bottom_y = this[i].top_y + this[i].length;
             let at_textbox_y = bottom_y >= this.textbox_y && bottom_y <= this.textbox_y + this[i].length;
             let at_textbox_x = this[i].top_x >= this.textbox_x && this[i].top_x <= this.textbox_x + this.textbox_width;
-            // if (this.is_reflected) {
-            //     console.log('drop number', i, this[i].top_x, this[i].top_y);
-            //     console.log('textbox', this.textbox_x, this.textbox_y, this.textbox_width);
-            //     console.log(at_textbox_y, at_textbox_x);
-            // }
             if (this.is_reflected && at_textbox_y && at_textbox_x) {
                 this.reflections.push(
                     new ReflectedDrop(
